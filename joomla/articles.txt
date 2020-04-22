@@ -2,7 +2,7 @@ SELECT
 `id`,
 `title`,
 `alias` AS 'slug',
-(`id` + '.' + `alias`) AS 'joomla_slug',
+CONCAT_WS("-", `id`, `alias`) AS 'joomla_slug',
 `introtext` AS 'lead',
 `metadesc` AS 'meta_description',
 `metakey` AS 'meta_keywords',
