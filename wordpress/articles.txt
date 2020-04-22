@@ -1,0 +1,12 @@
+SELECT 
+`id`,
+`post_title` AS 'title',
+`post_name` AS 'slug',
+CONCAT_WS("-", `id`, `post_name`) AS 'joomla_slug',
+`post_excerpt` AS 'lead',
+`post_content` AS 'content',
+`post_parent` AS 'category',
+`post_author` AS 'author',
+`post_date` AS 'created_at',
+`guid` AS 'short_link'
+FROM `wp_posts` ORDER BY `id` DESC;

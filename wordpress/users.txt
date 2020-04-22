@@ -1,0 +1,9 @@
+SELECT 
+`id`,
+`display_name`,
+`user_nicename` AS 'name',
+`user_login` AS 'username',
+`user_email` AS 'email',
+`user_pass` AS `password`,
+`user_registered` AS 'created_at'
+FROM `wp_users`;

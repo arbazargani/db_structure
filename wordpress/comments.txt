@@ -1,0 +1,13 @@
+SELECT
+`comment_ID` AS 'id',
+`comment_parent` AS 'parent',
+`comment_post_ID` 'post_id',
+`comment_author` AS 'name',
+`user_id`,
+`comment_author_email` as 'email',
+`comment_author_url` AS 'website',
+`comment_content` AS 'content',
+`comment_author_IP`AS 'ip',
+`comment_date` AS 'created_at',
+`comment_approved` AS 'state'
+FROM `wp_comments`;
