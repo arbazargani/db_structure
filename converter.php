@@ -47,7 +47,7 @@
                 `id`,
                 `title`,
                 `alias` AS 'slug',
-                CONCAT_WS('-', `id`, `alias`) AS 'joomla_slug',
+                `alias` AS 'joomla_slug',
                 `introtext` AS 'lead',
                 `metadesc` AS 'meta_description',
                 `metakey` AS 'meta_keywords',
@@ -56,7 +56,7 @@
                 `created_by` AS 'author',
                 `created` AS 'created_at',
                 `hits` AS 'views'
-                FROM `rokh1_content` ORDER BY `id` ASC;
+                FROM `rokh1_content` ORDER BY `id` ASC LIMIT 100;
         ";
         $result = mysqli_query($jconn, $jsql);
 
