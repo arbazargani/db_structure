@@ -1,0 +1,19 @@
+--------*||||   consider: this is just for jcomments joomla plugin.   ||||*--------
+
+
+SELECT
+id,
+`parent`,
+`thread_id`,
+`path`,
+`level`,
+`userid` AS 'user_id',
+`name`,
+`username`,
+`email`,
+`homepage` AS 'website',
+`comment` AS 'content',
+`ip`,
+`date` AS 'created_at',
+`published` AS 'state'
+FROM `rokh1_jcomments`;

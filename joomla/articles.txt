@@ -4,6 +4,8 @@ SELECT
 `alias` AS 'slug',
 (`id` + '.' + `alias`) AS 'joomla_slug',
 `introtext` AS 'lead',
+`metadesc` AS 'meta_description',
+`metakey` AS 'meta_keywords',
 `fulltext` AS 'content',
 `catid` AS 'category',
 `created_by` AS 'author',
