@@ -1,4 +1,5 @@
 <?php
+    
     /*
      * This script is for converting joomla database to wordpress database.
      * note: this is beta and won't work for your purpose i think!
@@ -7,6 +8,50 @@
      * let's go so ...
      */
 
+
+     /*
+     * Include wordpress libs to make slugs from title automaticaly.
+     */
+    function mbstring_binary_safe_encoding( $reset = false ) {
+        static $encodings  = array();
+        static $overloaded = null;
+    
+        if ( is_null( $overloaded ) ) {
+            $overloaded = function_exists( 'mb_internal_encoding' ) && ( ini_get( 'mbstring.func_overload' ) & 2 );
+        }
+    
+        if ( false === $overloaded ) {
+            return;
+        }
+    
+        if ( ! $reset ) {
+            $encoding = mb_internal_encoding();
+            array_push( $encodings, $encoding );
+            mb_internal_encoding( 'ISO-8859-1' );
+        }
+    
+        if ( $reset && $encodings ) {
+            $encoding = array_pop( $encodings );
+            mb_internal_encoding( $encoding );
+        }
+    }
+    
+    /**
+     * Reset the mbstring internal encoding to a users previously set encoding.
+     *
+     * @see mbstring_binary_safe_encoding()
+     *
+     * @since 3.7.0
+     */
+    function reset_mbstring_encoding() {
+        mbstring_binary_safe_encoding( true );
+    }
+    
+    require 'formatting.php';
+
+    /*
+     * Load application environments.
+     */
     $env = require 'env.php';
 
     /**
@@ -46,7 +91,6 @@
                 SELECT 
                 `id`,
                 `title`,
-                `alias` AS 'slug',
                 `alias` AS 'joomla_slug',
                 `introtext` AS 'lead',
                 `metadesc` AS 'meta_description',
@@ -56,7 +100,7 @@
                 `created_by` AS 'author',
                 `created` AS 'created_at',
                 `hits` AS 'views'
-                FROM `rokh1_content` ORDER BY `id` ASC LIMIT 100;
+                FROM `rokh1_content` ORDER BY `id` DESC LIMIT 2;
         ";
         $result = mysqli_query($jconn, $jsql);
 
@@ -73,14 +117,11 @@
                 $post_excerpt = $row['lead'];
                 $post_status = 'publish';
                 $comment_status = 'open';
-                $post_name = $row['joomla_slug'];
+                // $post_name = urlencode($row['joomla_slug']);
+                $post_name = sanitize_title_with_dashes($row['title']);
                 $guid = $env['wordpress_domain'] . "?p=$id";
                 $wsql = "INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
-                                                ('$id', '$post_author', '$post_date', '$post_date_gmt', '$post_content', '$post_title', '$post_excerpt', '$post_status', 'open', 'open', '', '$post_name', '', '', '$post_date', '$post_date', '', '', '$guid', '0', 'post', '', '0');";
-//                echo $wsql;
-                echo '<pre>';
-//                print_r($row);
-//                echo '</pre><hr/>';
+                                                ('$id', '$post_author', '$post_date', '$post_date_gmt', '$post_content', '$post_title', '$post_excerpt', '$post_status', 'open', 'open', '', '$post_name', '', '', '$post_date', '$post_date', '', '0', '$guid', '0', 'post', '', '0');";
 
                 if (mysqli_query($wconn, $wsql)) {
                     echo "<pre>New record created successfully</pre>";
