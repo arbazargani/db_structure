@@ -1,0 +1,12 @@
+SELECT 
+`id`,
+`title`,
+`alias` AS 'slug',
+(`id` + '.' + `alias`) AS 'joomla_slug',
+`introtext` AS 'lead',
+`fulltext` AS 'content',
+`catid` AS 'category',
+`created_by` AS 'author',
+`created` AS 'created_at',
+`hits` AS 'views'
+FROM `rokh1_content` ORDER BY `id` DESC LIMIT 1;

@@ -1,0 +1,7 @@
+SELECT 
+`id`,
+`title`,
+`alias` AS 'slug',
+`parent_id` AS 'parent',
+`path` AS 'slug'
+FROM `rokh1_categories` ORDER BY `id` DESC;
