@@ -1,0 +1,8 @@
+DELETE FROM wp_posts WHERE id > 4;
+DELETE FROM wp_terms WHERE term_id > 1;
+DELETE FROM wp_term_taxonomy WHERE term_taxonomy_id > 1;
+DELETE FROM wp_term_relationships WHERE term_taxonomy_id > 1;
+
+
+motorcycle/576-صنعت-موتورسیکلت-نیازمند-تصمیم%e2%80%8cگیری/
+motorcycle/576-صنعت-موتورسیکلت-نیازمند-تصمیم%E2%80%8Cگیری%E2%80%8Cهای-چندجانبه

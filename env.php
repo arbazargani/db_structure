@@ -14,7 +14,7 @@
         /*
          * wordpress domain
          */
-        'wordpress_domain' => 'http://localhost:8080/pure-wp/',
+        'wordpress_domain' => 'http://localhost/pure-wp/',
 
         
 
